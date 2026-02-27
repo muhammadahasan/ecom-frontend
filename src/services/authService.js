@@ -1,19 +1,29 @@
-import { apiRequest } from "./api.js";
+import api from './api';
 
-export function login(payload) {
-  return apiRequest("/auth/login", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+class AuthService {
+  async login(email, password) {
+    const response = await api.post('/auth/login', { email, password });
+    return response.data;
+  }
+
+  async signup(userData) {
+    const response = await api.post('/auth/signup', userData);
+    return response.data;
+  }
+
+  async logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
+  getCurrentUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
 }
 
-export function signup(payload) {
-  return apiRequest("/auth/signup", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-}
-
-export function getCurrentUser() {
-  return apiRequest("/auth/me", { method: "GET" });
-}
+export default new AuthService();
