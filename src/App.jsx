@@ -4,6 +4,8 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import Auth from '@/pages/auth/Auth';  // Make sure this path is correct
 import Dashboard from '@/pages/dashboard/Dashboard';
 import ProtectedRoute from '@/components/common/ProtectedRoute';
+import Categories from './pages/categories/Categories';
+import Products from './pages/products/Products';
 
 function App() {
   return (
@@ -16,6 +18,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <ProtectedRoute>
+                <Categories />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
+                <Products />
               </ProtectedRoute>
             }
           />
